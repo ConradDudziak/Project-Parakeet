@@ -20,6 +20,7 @@ api = tweepy.API(auth)
 
 
 def retrieve_last_seen_id(file_name):
+    # Retrieves the last seen tweet id and returns it.
     f_read = open(file_name, 'r')
     last_seen_id = int(f_read.read().strip())
     f_read.close()
@@ -27,6 +28,7 @@ def retrieve_last_seen_id(file_name):
 
 
 def save_last_seen_id(last_seen_id, file_name):
+    # Saves the last seen tweet id into the database.
     f_write = open(file_name, 'w')
     f_write.write(str(last_seen_id))
     f_write.close()
@@ -34,6 +36,8 @@ def save_last_seen_id(last_seen_id, file_name):
 
 
 def reply_to_tweets():
+    # Checks the 20 most recent mentions (@ParakeetProject) and responds.
+    # The bot only responds if the message contained #HelloWorld.
     print("retrieving and replying to tweets...")
     last_seen_id = retrieve_last_seen_id(FILE_NAME)
     mentions = api.mentions_timeline(last_seen_id, tweet_mode="extended")
